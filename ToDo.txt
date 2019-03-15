@@ -1,0 +1,25 @@
+1. Create Firebase Project
+2. Create Screens
+    - Welcome
+    - Login
+    - Profile
+    - Entry
+        - Ewes        
+        - Rams
+        - Lambs
+    - Medical
+        - Search for previously entered animal
+            - Edit Medical for animal
+    - Feed        
+    - Review / Edit
+        - Edit Page Search
+            - Edit Page Results
+3. Create test auto login
+4. Create Login (Email/Password)
+5. Set Auth to confirm authorized
+6. Establish Firebase database
+    - Ewes
+    - Rams
+    - Lambs
+    - Medical (Tied to animalID and auth.uis)
+
