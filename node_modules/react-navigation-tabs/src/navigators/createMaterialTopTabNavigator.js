@@ -17,6 +17,7 @@ type Props = InjectedProps & {
   lazy?: boolean,
   optimizationsEnabled?: boolean,
   swipeEnabled?: boolean,
+  renderPager?: (props: *) => React.Node,
   tabBarComponent?: React.ComponentType<*>,
   tabBarOptions?: TabBarOptions,
   tabBarPosition?: 'top' | 'bottom',
@@ -109,6 +110,7 @@ class MaterialTabView extends React.PureComponent<Props, State> {
         getTestID={this.props.getTestID}
         renderIcon={this._renderIcon}
         onTabPress={this.props.onTabPress}
+        onTabLongPress={this.props.onTabLongPress}
       />
     );
   };
@@ -221,7 +223,7 @@ class MaterialTabView extends React.PureComponent<Props, State> {
       ...rest
     } = this.props;
 
-    let renderPager;
+    let renderPager = rest.renderPager;
 
     const { state } = this.props.navigation;
     const route = state.routes[state.index];

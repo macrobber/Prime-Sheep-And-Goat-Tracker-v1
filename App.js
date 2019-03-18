@@ -1,58 +1,89 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {createBottomTabNavigator } from 'react-navigation';
-import { SafeAreaView } from 'react-navigation';
-
-import login from './app/screens/login.js';
-import entry from './app/screens/entry.js';
-import edit from './app/screens/edit.js';
-import medical from './app/screens/medical.js';
-import profile from './app/screens/profile.js';
+import { Button, Text, View } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
+import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
 
 
-const MainStack = createBottomTabNavigator (
-  {
-    Home: { screen: login},
-    Entry: {screen: entry},
-    Edit: {screen: edit},
-    Medical: {screen: medical},
-    Profile: {screen: profile},
-  },
-  {
-    tabBarOptions: {
-      activeTintColor: 'yellow',
-      inactiveTintColor: 'white',
-      labelStyle: {
-        fontSize: 16,
-        paddingBottom: 15
-        
-      },
-      tabStyle: {
-        width: 100,
-      },
-      style: {
-        backgroundColor: '#355e3b',
-        inactiveTintColor: 'yellow',
-        color: 'white'
-      },
-    }
-  }
-  
-)
-
-export default class App extends React.Component {
+class HomeScreen extends React.Component {
   render() {
     return (
-      <MainStack/>
-      );
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Home!</Text>
+        <Button
+          title="Go to Settings"
+          onPress={() => this.props.navigation.navigate('Settings')}
+        />
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
+      </View>
+    );
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+class SettingsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Settings!</Text>
+        <Button
+          title="Go to Home"
+          onPress={() => this.props.navigation.navigate('Home')}
+        />
+        <Button
+          title="Go to Details"
+          onPress={() => this.props.navigation.navigate('Details')}
+        />
+      </View>
+    );
+  }
+}
+
+class DetailsScreen extends React.Component {
+  render() {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <Text>Details!</Text>
+      </View>
+    );
+  }
+}
+
+const HomeStack = createStackNavigator({
+  Home: { screen: HomeScreen },
+  Details: { screen: DetailsScreen },
 });
+
+const SettingsStack = createStackNavigator({
+  Settings: { screen: SettingsScreen },
+  Details: { screen: DetailsScreen },
+});
+
+export default createAppContainer(createBottomTabNavigator(
+  {
+    Home: { screen: HomeStack },
+    Settings: { screen: SettingsStack },
+  },
+  {
+    defaultNavigationOptions: ({ navigation }) => ({
+      tabBarIcon: ({ focused, tintColor }) => {
+        const { routeName } = navigation.state;
+        let iconName;
+        if (routeName === 'Home') {
+          iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+        } else if (routeName === 'Settings') {
+          iconName = `ios-options${focused ? '' : '-outline'}`;
+        }
+
+        // You can return any component that you like here! We usually use an
+        // icon component from react-native-vector-icons
+        return <Ionicons name={iconName} size={25} color={tintColor} />;
+      },
+    }),
+    tabBarOptions: {
+      activeTintColor: 'tomato',
+      inactiveTintColor: 'gray',
+    },
+  }
+));
