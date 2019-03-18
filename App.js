@@ -3,12 +3,12 @@ import { StyleSheet, Text, View } from 'react-native';
 import {createBottomTabNavigator } from 'react-navigation';
 import { SafeAreaView } from 'react-navigation';
 
-
 import login from './app/screens/login.js';
 import entry from './app/screens/entry.js';
 import edit from './app/screens/edit.js';
 import medical from './app/screens/medical.js';
 import profile from './app/screens/profile.js';
+
 
 const MainStack = createBottomTabNavigator (
   {
