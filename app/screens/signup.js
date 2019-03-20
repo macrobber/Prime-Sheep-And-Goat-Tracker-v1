@@ -2,35 +2,36 @@ import React from 'react';
 import {TouchableHighlight, Flatlist, StyleSheet, Text, View, Image, TextInput, Button} from 'react-native';
 
 
-class login extends React.Component{
+class signup extends React.Component{
     constructor(props) {
         super(props);
     }
     state = { email: '', password: '', errorMessage: null }
     handleSignUp = () => {
       // TODO: Firebase stuff...
-      console.log('handle Sign In')
+      console.log('Handle Sing Up')
     }
     static navigationOptions = {
-      title: 'Log In',
-      headerStyle: {
-        backgroundColor: '#355e3b',
-        height: 42, 
-        paddingTop: 30, 
-      },
-      headerTintColor: '#fff',
-      headerTitleStyle: {      
-        flex: 1,
-        fontSize: 14,
-        textAlign: 'left',
-      },
-    };
+        title: 'Sign Up',
+        headerStyle: {
+          backgroundColor: '#355e3b',
+          height: 42, 
+          paddingTop: 30,           
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {      
+          flex: 1,
+          fontSize: 14,
+          textAlign: 'left',
+        },
+      };
+  
     render()
     {
         return(
             <View style={{flex: 1, backgroundColor: '#ffdf80' }}>
             <View style={styles.container}>
-        <Text>Sign In</Text>
+        <Text>Sign Up</Text>
         {this.state.errorMessage &&
           <Text style={{ color: 'red' }}>
             {this.state.errorMessage}
@@ -44,7 +45,6 @@ class login extends React.Component{
         />
         <TextInput
           secureTextEntry
-          inputStyle={{marginLeft: 10}}
           placeholder="Password"
           autoCapitalize="none"
           style={styles.textInput}
@@ -60,8 +60,9 @@ class login extends React.Component{
                     marginRight:50,
                     marginTop :20
                 }}>
+
         <Button 
-        title="Log In" 
+        title="Sign Up" 
         color='#233067'
         onPress={this.handleSignUp} />
 </TouchableHighlight>
@@ -77,13 +78,13 @@ const styles = StyleSheet.create({
       alignItems: 'center'
     },
     textInput: {
-      height: 40,
-      width: '90%',
-      borderColor: 'gray',
-      backgroundColor: 'white',
-      borderWidth: 1,
-      paddingLeft: 6,
-      marginTop: 8
+        height: 40,
+        width: '90%',
+        borderColor: 'gray',
+        backgroundColor: 'white',
+        borderWidth: 1,
+        paddingLeft: 6,
+        marginTop: 8
     }
   })
-export default login;
+export default signup;

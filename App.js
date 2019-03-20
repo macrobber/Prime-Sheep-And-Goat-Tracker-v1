@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Text, View } from 'react-native';
+import { Image, TouchableHighlight, Button, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from "react-native-vector-icons/Ionicons";
 import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
@@ -8,20 +8,77 @@ import entry from './app/screens/entry.js';
 import edit from './app/screens/edit.js';
 import medical from './app/screens/medical.js';
 import profile from './app/screens/profile.js';
+import signup from './app/screens/signup';
 
 class HomeScreen extends React.Component {
+  static navigationOptions = {
+    title: 'Home',
+    headerStyle: {
+      backgroundColor: '#355e3b',
+      height: 42, 
+      paddingTop: 30, 
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {      
+      flex: 1,
+      fontSize: 14,
+      textAlign: 'center',
+    },
+  };
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <Text>Home!</Text>
-        <Button
-          title="Go to Settings"
-          onPress={() => this.props.navigation.navigate('Settings')}
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffdf80' }}>
+        <Image
+            style={{width: 155, height: 155}}
+             source={{uri: 'https://www.primenumberfarms.com/wp-content/uploads/2017/10/PNFlogoSimple2.jpg'}}
         />
+        
+        <TouchableHighlight 
+                style ={{
+                    height: 40,
+                    width:160,
+                    borderRadius:10,                    
+                    marginLeft :50,
+                    marginRight:50,
+                    marginTop :20
+                }}>
         <Button
-          title="Go to Details"
+          title="Log In"
+          color='#233067'
+          onPress={() => this.props.navigation.navigate('Login')}
+        />
+</TouchableHighlight>
+<TouchableHighlight 
+                style ={{
+                    height: 40,
+                    width:160,
+                    borderRadius:10,                    
+                    marginLeft :50,
+                    marginRight:50,
+                    marginTop :20
+                }}>
+        <Button
+          title="Sign Up"
+          color='#233067'
+          onPress={() => this.props.navigation.navigate('Signup')}
+        />
+</TouchableHighlight>
+
+<TouchableHighlight 
+                style ={{
+                    height: 40,
+                    width:160,
+                    borderRadius:10,                    
+                    marginLeft :50,
+                    marginRight:50,
+                    marginTop :20
+                }}>
+        <Button
+          title="About This App"
+          color='#233067'
           onPress={() => this.props.navigation.navigate('Details')}
         />
+</TouchableHighlight>
       </View>
     );
   }
@@ -46,10 +103,26 @@ class SettingsScreen extends React.Component {
 }
 
 class DetailsScreen extends React.Component {
+  static navigationOptions = {
+    title: 'About',
+    headerStyle: {
+      backgroundColor: '#355e3b',
+      height: 42, 
+      paddingTop: 30, 
+    },
+    headerTintColor: '#fff',
+    headerTitleStyle: {      
+      flex: 1,
+      fontSize: 14,
+      textAlign: 'left',
+    },
+  };
+
   render() {
     return (
-      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffdf80' }}>
         <Text>Details!</Text>
+        <Text>Add details about the app, Free Vs. Pro, redirect to more infor on website, etc.</Text>
       </View>
     );
   }
@@ -58,6 +131,8 @@ class DetailsScreen extends React.Component {
 const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
   Details: { screen: DetailsScreen },
+  Login: {screen: login },
+  Signup: {screen: signup },
 });
 
 const SettingsStack = createStackNavigator({
@@ -97,13 +172,13 @@ export default createAppContainer(createBottomTabNavigator(
     },
     Medical: {screen: medical,
       navigationOptions:{  
-        tabBarLabel:'Medical',  
+        tabBarLabel:'Upkeep',  
         tabBarIcon:({tintColor})=>(  
             <Icon name="md-medical" color={tintColor} size={25}/>  
         )  
       }  
 },
-    Settings: { screen: SettingsStack,
+    Settings: { screen: profile,
       navigationOptions:{  
         tabBarLabel:'Settings',  
         tabBarIcon:({tintColor})=>(  
