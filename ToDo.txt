@@ -1,12 +1,17 @@
 1. Create Firebase Project
 2. Create Screens
     - Welcome
-    - Login
+        - If logged in - Welcome
+        - If NOT logged in:
+            - Login
+            - Create Account    
     - Profile
+
     - Entry
         - Ewes        
         - Rams
         - Lambs
+
     - Medical
         - Search for previously entered animal
             - Edit Medical for animal
@@ -14,6 +19,7 @@
     - Review / Edit
         - Edit Page Search
             - Edit Page Results
+            
 3. Create test auto login
 4. Create Login (Email/Password)
 5. Set Auth to confirm authorized

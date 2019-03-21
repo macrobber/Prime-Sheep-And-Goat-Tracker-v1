@@ -1,6 +1,6 @@
 import React from 'react';
 import {TouchableHighlight, Flatlist, StyleSheet, Text, View, Image, TextInput, Button} from 'react-native';
-
+import {f, auth, database } from '../../config/config.js';
 
 class signup extends React.Component{
     constructor(props) {
@@ -9,6 +9,13 @@ class signup extends React.Component{
     state = { email: '', password: '', errorMessage: null }
     handleSignUp = () => {
       // TODO: Firebase stuff...
+      f.auth()
+      .createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => this.props.navigation.navigate('Home'))
+      .catch(error => this.setState({ errorMessage: error.message }))
+  //}
+
+
       console.log('Handle Sing Up')
     }
     static navigationOptions = {
@@ -51,6 +58,15 @@ class signup extends React.Component{
           onChangeText={password => this.setState({ password })}
           value={this.state.password}
         />
+        <TextInput
+          secureTextEntry
+          placeholder="Name"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={name => this.setState({ name })}
+          value={this.state.name}
+        />
+
 <TouchableHighlight 
                 style ={{
                     height: 40,
@@ -87,4 +103,6 @@ const styles = StyleSheet.create({
         marginTop: 8
     }
   })
-export default signup;
+
+
+  export default signup;

@@ -9,6 +9,9 @@ import edit from './app/screens/edit.js';
 import medical from './app/screens/medical.js';
 import profile from './app/screens/profile.js';
 import signup from './app/screens/signup';
+//import loading from './app/screens/loading.js';
+import {f, auth, database } from './config/config.js';
+
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -25,29 +28,47 @@ class HomeScreen extends React.Component {
       textAlign: 'center',
     },
   };
+
+  state = { currentUser: null }
+  constructor(props)
+  {
+    super(props);
+    this.state = {
+      loggedin: false
+  }
+
+}
+componentDidMount() {
+  var that = this;
+  f.auth().onAuthStateChanged(user => {
+    if(user){
+      //logged in
+      that.setState({
+          loggedin: true
+      })
+  }else{
+      //not logged in
+      that.setState({
+          loggedin: false
+      })
+
+  }
+    this.props.navigation.navigate(user ? 'Home' : 'Login')
+  })
+
+  }
+  
   render() {
+    const { currentUser } = this.state
     return (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffdf80' }}>
         <Image
             style={{width: 155, height: 155}}
              source={{uri: 'https://www.primenumberfarms.com/wp-content/uploads/2017/10/PNFlogoSimple2.jpg'}}
         />
-        
-        <TouchableHighlight 
-                style ={{
-                    height: 40,
-                    width:160,
-                    borderRadius:10,                    
-                    marginLeft :50,
-                    marginRight:50,
-                    marginTop :20
-                }}>
-        <Button
-          title="Log In"
-          color='#233067'
-          onPress={() => this.props.navigation.navigate('Login')}
-        />
-</TouchableHighlight>
+
+{this.state.loggedin == true ? (
+// logged in
 <TouchableHighlight 
                 style ={{
                     height: 40,
@@ -58,12 +79,47 @@ class HomeScreen extends React.Component {
                     marginTop :20
                 }}>
         <Button
-          title="Sign Up"
+          title="Log Out"
           color='#233067'
-          onPress={() => this.props.navigation.navigate('Signup')}
+          onPress={() => auth.signOut()}
         />
 </TouchableHighlight>
 
+) : (
+// Not logged in
+<View>
+<TouchableHighlight 
+style ={{
+    height: 40,
+    width:160,
+    borderRadius:10,                    
+    marginLeft :50,
+    marginRight:50,
+    marginTop :20
+}}>
+<Button
+title="Log In"
+color='#233067'
+onPress={() => this.props.navigation.navigate('Login')}
+/>
+</TouchableHighlight>
+<TouchableHighlight 
+style ={{
+    height: 40,
+    width:160,
+    borderRadius:10,                    
+    marginLeft :50,
+    marginRight:50,
+    marginTop :20
+}}>
+<Button
+title="Sign Up"
+color='#233067'
+onPress={() => this.props.navigation.navigate('Signup')}
+/>
+</TouchableHighlight>
+</View>
+)}
 <TouchableHighlight 
                 style ={{
                     height: 40,
@@ -79,6 +135,7 @@ class HomeScreen extends React.Component {
           onPress={() => this.props.navigation.navigate('Details')}
         />
 </TouchableHighlight>
+
       </View>
     );
   }
@@ -133,7 +190,9 @@ const HomeStack = createStackNavigator({
   Details: { screen: DetailsScreen },
   Login: {screen: login },
   Signup: {screen: signup },
-});
+  //Loading: {screen: loading },
+},
+);
 
 const SettingsStack = createStackNavigator({
   Settings: { screen: SettingsScreen },
@@ -226,3 +285,4 @@ export default createAppContainer(createBottomTabNavigator(
     },
   }
 ));
+console.disableYellowBox = true;
