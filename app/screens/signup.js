@@ -6,8 +6,45 @@ class signup extends React.Component{
     constructor(props) {
         super(props);
     }
-    state = { email: '', password: '', errorMessage: null }
-    handleSignUp = () => {
+    state = { email: '', password: '', fname: '', lname: '', city: '', state: '', errorMessage: null }
+
+    createUserObj = (userObj, email, fname, lname, city, state) => {
+
+      console.log(userObj, email, userObj.uid);
+      var uObj = {
+        fname: fname,
+        lname: lname,
+        city: city,
+        state: state,
+        avatar: 'http://www.gravatar.com/avatar',
+        email: email
+      };
+      database.ref('users').child(userObj.uid).set(uObj);
+    }
+
+    handleSignUp = async() => {
+
+    var email = this.state.email;
+    var pass = this.state.password;
+    var fname = this.state.fname;
+    var lname = this.state.lname;
+    var city = this.state.city;
+    var state = this.state.state;
+
+    if(email !='' && pass !=''){
+      try{
+        let user = await auth.createUserWithEmailAndPassword(email, pass)
+        .then((userObj) => this.createUserObj(userObj.user, email, fname, lname, city, state))
+        .catch((error) => alert(error));
+      }catch(error){
+        console.log(error);
+        alert(error);
+      }
+    }else{
+      alert('email or password is empty...');
+    }
+
+/*      
       // TODO: Firebase stuff...
       f.auth()
       .createUserWithEmailAndPassword(this.state.email, this.state.password)
@@ -15,7 +52,12 @@ class signup extends React.Component{
       .catch(error => this.setState({ errorMessage: error.message }))
   //}
 
-
+/*      var updates = {};
+      updates['/users/email'] = this.state.email;
+      updates['/users/name'] = this.state.name;
+      updates['/users/avatar'] = 'Moo';
+      database.ref().update(updates);
+*/
       console.log('Handle Sing Up')
     }
     static navigationOptions = {
@@ -59,13 +101,34 @@ class signup extends React.Component{
           value={this.state.password}
         />
         <TextInput
-          secureTextEntry
-          placeholder="Name"
+          placeholder="First Name (optional)"
           autoCapitalize="none"
           style={styles.textInput}
-          onChangeText={name => this.setState({ name })}
-          value={this.state.name}
+          onChangeText={fname => this.setState({ fname })}
+          value={this.state.fname}
         />
+        <TextInput
+          placeholder="Last Name (optional)"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={lname => this.setState({ lname })}
+          value={this.state.lname}
+        />
+        <TextInput
+          placeholder="City (optional)"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={city => this.setState({ city })}
+          value={this.state.city}
+        />
+        <TextInput
+          placeholder="State (optional)"
+          autoCapitalize="none"
+          style={styles.textInput}
+          onChangeText={state => this.setState({ state })}
+          value={this.state.state}
+        />
+
 
 <TouchableHighlight 
                 style ={{
