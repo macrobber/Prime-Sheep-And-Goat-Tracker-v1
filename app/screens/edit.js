@@ -1,5 +1,5 @@
 import React from 'react';
-import {TouchableHighlight, Flatlist, StyleSheet, Text, View, Image, Button} from 'react-native';
+import {TouchableOpacity, TouchableHighlight, Flatlist, StyleSheet, Text, View, Image, Button} from 'react-native';
 import {f, auth, database } from '../../config/config.js';
 
 class edit extends React.Component{
@@ -9,7 +9,6 @@ class edit extends React.Component{
             loggedin: false
         }
     }
-
     componentDidMount = () => {
         var that = this;
         f.auth().onAuthStateChanged(function(user){
@@ -26,18 +25,50 @@ class edit extends React.Component{
             }
         })
     }
+    static navigationOptions = {
+        title: 'Edit Entry',
+        headerStyle: {
+          backgroundColor: '#355e3b',
+          height: 42, 
+          paddingTop: 30,           
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {      
+          flex: 1,
+          fontSize: 14,
+          textAlign: 'center',
+        },
+      };
+
     render()
     {
         return(
             <View style={{flex: 1, backgroundColor: '#ffdf80' }}>
-            <View style={{height: 70, paddingTop: 30, backgroundColor: '#355e3b', borderColor: 'lightgrey', borderBottomWidth: 0.5, justifyContent: 'center', alignItems: 'center' }}>
-                <Text style={{color: 'white'}}>Edit Page</Text>
-            </View>            
 
             {this.state.loggedin == true ? (
                 // logged in                
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffdf80' }}>
-                <Text>Here we will be able to edit our entries...</Text>
+                <Text>Here we will edit entries and stuff...</Text>
+                <TouchableHighlight 
+                style ={{
+                    height: 40,
+                    width:160,
+                    borderRadius:10,                    
+                    marginLeft :50,
+                    marginRight:50,
+                    marginTop :20
+                }}>
+        <Button
+          title="Edit Ewe"
+          color='#233067'
+          onPress={() => this.props.navigation.navigate('NewEwe')}
+          
+        />
+        
+</TouchableHighlight>
+
+
+
                 </View>
 
             ) : (

@@ -2,12 +2,14 @@ import React from 'react';
 import { Image, TouchableHighlight, Button, Text, View } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import Icon from "react-native-vector-icons/Ionicons";
-import { createStackNavigator, createBottomTabNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator, createBottomTabNavigator, createAppContainer, createSwitchNavigator } from 'react-navigation';
 import login from './app/screens/login.js';
 import entry from './app/screens/entry.js';
+import editewe from './app/screens/editewe.js';
 import edit from './app/screens/edit.js';
 import medical from './app/screens/medical.js';
 import profile from './app/screens/profile.js';
+import newewe from './app/screens/newewe.js';
 import signup from './app/screens/signup';
 //import loading from './app/screens/loading.js';
 import {f, auth, database } from './config/config.js';
@@ -85,7 +87,6 @@ componentDidMount() {
           onPress={() => auth.signOut()}
         />
 </TouchableHighlight>
-
 ) : (
 // Not logged in
 <View>
@@ -190,19 +191,29 @@ const HomeStack = createStackNavigator({
   Home: { screen: HomeScreen },
   Details: { screen: DetailsScreen },
   Login: {screen: login },
-  Signup: {screen: signup },
+  Signup: {screen: signup },  
+  //NewEwe: { screen: newewe },
   //Loading: {screen: loading },
 },
 );
 
 const SettingsStack = createStackNavigator({
   Settings: { screen: SettingsScreen },
-  Details: { screen: DetailsScreen },
+  Details: { screen: DetailsScreen },  
 });
 
+const EditEweStack = createStackNavigator({
+  EditHome: { screen: edit },
+  NewEwe: { screen: editewe },
+});
+
+const EntryStack = createStackNavigator({
+  EntryHome: { screen: entry },
+  NewEwe: { screen: newewe },
+});
 
 export default createAppContainer(createBottomTabNavigator(
-  {
+  {    
     Home: { screen: HomeStack,
       navigationOptions:{  
         tabBarLabel:'Home',  
@@ -212,16 +223,17 @@ export default createAppContainer(createBottomTabNavigator(
       }  
      },
     
-    Entry: {screen: entry,
+    Entry: {screen: EntryStack,
       navigationOptions:{  
         tabBarLabel:'Entry',  
+        header: null,
         tabBarIcon:({tintColor})=>(  
             <Icon name="ios-add-circle-outline" color={tintColor} size={25}/>  
         )  
       }  
     
     },
-    Edit: {screen: edit,
+    Edit: {screen: EditEweStack,
       navigationOptions:{  
         tabBarLabel:'Edit',  
         tabBarIcon:({tintColor})=>(  

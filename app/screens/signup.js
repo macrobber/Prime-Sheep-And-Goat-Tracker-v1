@@ -19,7 +19,7 @@ class signup extends React.Component{
         avatar: 'http://www.gravatar.com/avatar',
         email: email
       };
-      database.ref('users').child(userObj.uid).set(uObj);
+      database.ref('users').child(userObj.uid).set(uObj);      
     }
 
     handleSignUp = async() => {
@@ -43,21 +43,6 @@ class signup extends React.Component{
     }else{
       alert('email or password is empty...');
     }
-
-/*      
-      // TODO: Firebase stuff...
-      f.auth()
-      .createUserWithEmailAndPassword(this.state.email, this.state.password)
-      .then(() => this.props.navigation.navigate('Home'))
-      .catch(error => this.setState({ errorMessage: error.message }))
-  //}
-
-/*      var updates = {};
-      updates['/users/email'] = this.state.email;
-      updates['/users/name'] = this.state.name;
-      updates['/users/avatar'] = 'Moo';
-      database.ref().update(updates);
-*/
       console.log('Handle Sing Up')
     }
     static navigationOptions = {
