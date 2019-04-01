@@ -61,7 +61,7 @@ class edit extends React.Component{
         <Button
           title="Edit Ewe"
           color='#233067'
-          onPress={() => this.props.navigation.navigate('NewEwe')}
+          onPress={() => this.props.navigation.navigate('EditEwe')}
           
         />
         

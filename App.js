@@ -204,7 +204,7 @@ const SettingsStack = createStackNavigator({
 
 const EditEweStack = createStackNavigator({
   EditHome: { screen: edit },
-  NewEwe: { screen: editewe },
+  EditEwe: { screen: editewe },
 });
 
 const EntryStack = createStackNavigator({
