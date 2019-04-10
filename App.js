@@ -11,10 +11,9 @@ import medical from './app/screens/medical.js';
 import profile from './app/screens/profile.js';
 import newewe from './app/screens/newewe.js';
 import signup from './app/screens/signup';
+import editspecificewe from './app/screens/editspecificewe.js';
 //import loading from './app/screens/loading.js';
 import {f, auth, database } from './config/config.js';
-
-
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -205,6 +204,7 @@ const SettingsStack = createStackNavigator({
 const EditEweStack = createStackNavigator({
   EditHome: { screen: edit },
   EditEwe: { screen: editewe },
+  EditSpecificEwe: {screen: editspecificewe},
 });
 
 const EntryStack = createStackNavigator({

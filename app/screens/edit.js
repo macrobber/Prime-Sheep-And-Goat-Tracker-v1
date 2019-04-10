@@ -48,47 +48,41 @@ class edit extends React.Component{
             {this.state.loggedin == true ? (
                 // logged in                
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffdf80' }}>
-                <Text>Here we will edit entries and stuff...</Text>
-                <TouchableHighlight 
-                style ={{
-                    height: 40,
-                    width:160,
-                    borderRadius:10,                    
-                    marginLeft :50,
-                    marginRight:50,
-                    marginTop :20
-                }}>
-        <Button
-          title="Edit Ewe"
-          color='#233067'
-          onPress={() => this.props.navigation.navigate('EditEwe')}
-          
-        />
-        
-</TouchableHighlight>
-
-
-
+                    <Text>Here we will edit entries and stuff...</Text>
+                    <TouchableHighlight 
+                    style ={{
+                        height: 40,
+                        width:160,
+                        borderRadius:10,                    
+                        marginLeft :50,
+                        marginRight:50,
+                        marginTop :20
+                    }}>
+                        <Button
+                        title="Edit Ewe"
+                        color='#233067'
+                        onPress={() => this.props.navigation.navigate('EditEwe')}                    
+                        />
+                    </TouchableHighlight>
                 </View>
-
             ) : (
                 // not logged in
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffdf80' }}>
-                <TouchableHighlight 
-                                style ={{
-                                    height: 40,
-                                    width:160,
-                                    borderRadius:10,                    
-                                    marginLeft :50,
-                                    marginRight:50,
-                                    marginTop :20
-                                }}>
-                        <Button 
-                        title="Log In" 
-                        color='#233067'
-                        onPress={() => this.props.navigation.navigate('Login')}
-                        />
-                </TouchableHighlight>
+                    <TouchableHighlight 
+                        style ={{
+                            height: 40,
+                            width:160,
+                            borderRadius:10,                    
+                            marginLeft :50,
+                            marginRight:50,
+                            marginTop :20
+                    }}>
+                            <Button 
+                            title="Log In" 
+                            color='#233067'
+                            onPress={() => this.props.navigation.navigate('Login')}
+                            />
+                    </TouchableHighlight>
                 </View>
             )}
             </View>
