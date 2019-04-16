@@ -75,7 +75,7 @@ class editspecificewe extends React.Component{
         if(tmpEweId != null){
             database.ref('ewes/'+userID).child(tmpEweKey).child('eweId').set(tmpEweId);
             //this.stsate.refresh = true;
-            this.setState.refresh = true;
+            // this.setState.refresh = true;
             //database.ref('ewes/'+userID).child(tmpEweKey).set(tmpEweId);
             //database.ref('ewes/'+userID).child(this.state.userId).child('eweId').set(tmpEweId);
             //database.ref('ewes/'+userID).child(TheUniqueKeyOfPush).child('eweId').set(tmpEweId);
@@ -86,8 +86,34 @@ class editspecificewe extends React.Component{
         }
 
         this.setState({editingProfile: false})
+        this.setState({refresh: !this.state.refresh})
+
+        Alert.alert(
+            'Ewe Edited!',
+            'Successfully Edited Record',
+            [
+              {text: 'Return to Home Page', onPress: () => this.props.navigation.navigate('Home')},              
+              {text: 'Edit Screen', onPress: () => this.props.navigation.navigate('EditHome')},
+            ],
+            { cancelable: false }
+          )
 
     }
+    static navigationOptions = {
+        title: 'Edit This Ewe',
+        headerStyle: {
+          backgroundColor: '#355e3b',
+          height: 42, 
+          paddingTop: 30,           
+        },
+        headerTintColor: '#fff',
+        headerTitleStyle: {      
+          flex: 1,
+          fontSize: 14,
+          textAlign: 'center',
+        },
+      };
+
 
 
     render()
@@ -106,17 +132,14 @@ class editspecificewe extends React.Component{
         //const eweId = navigation.getParam('eweId', 'NO-ID');
         //const eweName = navigation.getParam('eweName', 'NO-Name');
         return(
-            <View style={{flex: 1}}>
-                <View style={{height: 70, paddingTop: 30, backgroundColor: 'lightgrey'}}>
-                    <Text>Edit Specific Ewe</Text>
-                </View>
+            <View style={{flex: 1, backgroundColor: '#ffdf80' }}>
 
                 {this.state.loading == true ? (
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
                         <Text>Loading...</Text> 
                     </View>
                 ) : (
-                <View style={{alignItems: 'center', justifyContent: 'center', paddingBottom: 20, paddingTop: 20, backgroundColor: '#CCB266'}}>
+                <View style={{alignItems: 'center', justifyContent: 'center', paddingBottom: 20, paddingTop: 20, backgroundColor: '#ffdf80'}}>
                     <Text>Ewe ID: {eweId}</Text>
                     <Text>Ewe Name: {eweName}</Text>
                     <TextInput
