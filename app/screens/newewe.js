@@ -64,9 +64,11 @@ class newewe extends React.Component{
         var eweId = this.state.eweid;
         var userID = this.state.userId;
         var eweName = this.state.ewename;
+        var breed = this.state.breed;
+        var dob = this.state.dob;
         
         //database.ref('ewes').child(this.state.userId).push({eweId, eweName});
-        database.ref('ewes').child(userID).push({eweId, eweName});
+        database.ref('ewes').child(userID).push({eweId, eweName, breed, dob});
         
         Alert.alert(
             'New Ewe Added!',
@@ -103,6 +105,21 @@ class newewe extends React.Component{
                                 
                                 style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
                            />
+                            <TextInput
+                                editable={true}
+                                placeholder={'Breed'}
+                                onChangeText={(text) => this.setState({breed: text})}
+                                
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                           />
+                            <TextInput
+                                editable={true}
+                                placeholder={'Date of Birth'}
+                                onChangeText={(text) => this.setState({dob: text})}
+                                
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                           />
+ 
  
                             <TouchableOpacity style={{backgroundColor: '#5e3558', padding: 10, marginTop: 10}}
                              onPress={ () => this.saveMom()}>

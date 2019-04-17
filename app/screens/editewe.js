@@ -43,14 +43,15 @@ class editewe extends React.Component{
 
     snapshot.forEach(c => { 
         i = c.val(); 
-        console.log('Inside foreach', i.eweId, i.eweName);
+        console.log('Inside foreach - eweId - name - breed = ', i.eweId, i.eweName, i.breed);
             if(exist) data = c.val();        
             
             counter++;
              ewedata.push({
                  eweId: i.eweId,
                  eweName: i.eweName,
-                 //eweKey: parentKey
+                 breed: i.breed,
+                 eweKey: c.key,
              });
              console.log('Inside push - just pushed', i.eweId);
              that.setState({
@@ -96,7 +97,7 @@ class editewe extends React.Component{
         this.loadFeed();
     }
     handlePress = (item, index) => {
-        console.log(item, index);
+        console.log('inside editEwe', item, index);
         this.props.navigation.navigate('EditSpecificEwe')
       }
 
@@ -141,6 +142,7 @@ class editewe extends React.Component{
                     eweId: item.eweId,
                     eweName: item.eweName,
                     eweKey: item.eweKey,
+                    breed: item.breed,
                   })}>                        
                         <View key={index} style={{width: '100%', overflow: 'hidden', marginBottom: 5, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: 'grey'}}>
                             <View style={{padding: 15, width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>
