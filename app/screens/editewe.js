@@ -50,7 +50,7 @@ class editewe extends React.Component{
              ewedata.push({
                  eweId: i.eweId,
                  eweName: i.eweName,
-                 breed: i.breed,
+                 breed: i.breed,                 
                  eweKey: c.key,
              });
              console.log('Inside push - just pushed', i.eweId);
