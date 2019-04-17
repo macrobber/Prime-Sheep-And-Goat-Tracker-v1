@@ -6,12 +6,15 @@ import { createStackNavigator, createBottomTabNavigator, createAppContainer, cre
 import login from './app/screens/login.js';
 import entry from './app/screens/entry.js';
 import editewe from './app/screens/editewe.js';
+import editram from './app/screens/editram.js';
 import edit from './app/screens/edit.js';
 import medical from './app/screens/medical.js';
 import profile from './app/screens/profile.js';
 import newewe from './app/screens/newewe.js';
+import newram from './app/screens/newram.js';
 import signup from './app/screens/signup';
 import editspecificewe from './app/screens/editspecificewe.js';
+import editspecificram from './app/screens/editspecificram.js';
 //import loading from './app/screens/loading.js';
 import {f, auth, database } from './config/config.js';
 
@@ -204,12 +207,15 @@ const SettingsStack = createStackNavigator({
 const EditEweStack = createStackNavigator({
   EditHome: { screen: edit },
   EditEwe: { screen: editewe },
+  EditRam: { screen: editram },
   EditSpecificEwe: {screen: editspecificewe},
+  EditSpecificRam: {screen: editspecificram},
 });
 
 const EntryStack = createStackNavigator({
   EntryHome: { screen: entry },
   NewEwe: { screen: newewe },
+  NewRam: { screen: newram },
 });
 
 export default createAppContainer(createBottomTabNavigator(

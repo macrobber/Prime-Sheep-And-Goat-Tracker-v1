@@ -3,19 +3,19 @@ import { Alert } from 'react-native';
 import {TouchableOpacity, TouchableHighlight, FlatList, StyleSheet, Text, View, TextInput, Image, Button} from 'react-native';
 import {f, auth, database } from '../../config/config.js';
 
-class editspecificewe extends React.Component{
+class editspecificram extends React.Component{
     constructor(props){
         super(props);
         this.state = {
             ewedata: [], // init array
             refresh: false, 
             loading: true,
-            eweId: this.props.navigation.getParam('eweId', 'NO-ID'),
-            eweName: this.props.navigation.getParam('eweName', 'NO-Name'),        
-            eweKey: this.props.navigation.getParam('eweKey', 'NO-Name'),
+            ramId: this.props.navigation.getParam('ramId', 'NO-ID'),
+            ramName: this.props.navigation.getParam('ramName', 'NO-Name'),        
+            ramKey: this.props.navigation.getParam('ramKey', 'NO-Name'),
         }
-        this.state.eweId = this.state.eweId.toString();
-        console.log('Inside const', this.state.eweKey);
+        this.state.ramId = this.state.ramId.toString();
+        console.log('Inside const', this.state.ramKey);
     }
 // On load default runs
     componentDidMount=() => {
@@ -34,7 +34,7 @@ class editspecificewe extends React.Component{
         
         let userID = f.auth().currentUser.uid; // grab the current users userId
 
-        database.ref('ewes/'+userID).once('value').then(function(snapshot) {
+        database.ref('rams/'+userID).once('value').then(function(snapshot) {
            const exist = (snapshot.val() != null );
            if(exist) data = snapshot.val();
            var ewedata = that.state.ewedata;
@@ -47,9 +47,9 @@ class editspecificewe extends React.Component{
 
 
                 ewedata.push({
-                    eweId: eweObj.eweId,
-                    eweName: eweObj.eweName,
-                    eweKey: parentKey
+                    ramId: eweObj.ramId,
+                    ramName: eweObj.ramName,
+                    ramKey: parentKey
                 });
                 that.setState({
                     refresh: false,
@@ -60,25 +60,25 @@ class editspecificewe extends React.Component{
     }
 
     saveEwe = () => {
-        var tmpEweId = this.state.eweId;
-        var tmpEweName = this.state.eweName;
-        var tmpEweKey = this.state.eweKey;
+        var tmpEweId = this.state.ramId;
+        var tmpEweName = this.state.ramName;
+        var tmpEweKey = this.state.ramKey;
         var TheUniqueKeyOfPush = f.database().ref().push().getKey();
         let userID = f.auth().currentUser.uid; // grab the current users userId
 
 
         if(tmpEweId != null){
-            database.ref('ewes/'+userID).child(tmpEweKey).child('eweId').set(tmpEweId);
+            database.ref('rams/'+userID).child(tmpEweKey).child('ramId').set(tmpEweId);
         }
         if(tmpEweName != null){
-            database.ref('ewes/'+userID).child(tmpEweKey).child('eweName').set(tmpEweName);
+            database.ref('rams/'+userID).child(tmpEweKey).child('ramName').set(tmpEweName);
         }
 
         this.setState({editingProfile: false})
         this.setState({refresh: !this.state.refresh})
 
         Alert.alert(
-            'Ewe Edited!',
+            'Ram Edited!',
             'Successfully Edited Record',
             [
               {text: 'Return to Home Page', onPress: () => this.props.navigation.navigate('Home')},              
@@ -89,7 +89,7 @@ class editspecificewe extends React.Component{
 
     }
     static navigationOptions = {
-        title: 'Edit This Ewe',
+        title: 'Edit This Ram',
         headerStyle: {
           backgroundColor: '#355e3b',
           height: 42, 
@@ -107,16 +107,16 @@ class editspecificewe extends React.Component{
 
     render()
     {
-        var eweId = this.props.navigation.getParam('eweId', 'NO-ID');
-        var eweName = this.props.navigation.getParam('eweName', 'NO-Name');
-        var eweKey = this.props.navigation.getParam('eweKey', 'NO-Name');
+        var ramId = this.props.navigation.getParam('ramId', 'NO-ID');
+        var ramName = this.props.navigation.getParam('ramName', 'NO-Name');
+        var ramKey = this.props.navigation.getParam('ramKey', 'NO-Name');
         
-        eweId.toString();
-        eweName.toString();
-        var eweIdTemp = eweId;
-        this.setState.eweId = eweId;
-        this.setState.eweName = eweName;
-        this.setState.eweKey = eweKey;
+        ramId.toString();
+        ramName.toString();
+        var eweIdTemp = ramId;
+        this.setState.ramId = ramId;
+        this.setState.ramName = ramName;
+        this.setState.ramKey = ramKey;
 
         return(
             <View style={{flex: 1, backgroundColor: '#ffdf80' }}>
@@ -127,20 +127,20 @@ class editspecificewe extends React.Component{
                     </View>
                 ) : (
                 <View style={{alignItems: 'center', justifyContent: 'center', paddingBottom: 20, paddingTop: 20, backgroundColor: '#ffdf80'}}>
-                    <Text>Ewe ID: {eweId}</Text>
-                    <Text>Ewe Name: {eweName}</Text>
+                    <Text>Ram ID: {ramId}</Text>
+                    <Text>Ram Name: {ramName}</Text>
                     <TextInput
                                 editable={true}
-                                placeholder={'Ewe Id'}
-                                onChangeText={(text) => this.setState({eweId: text})}
-                                value={this.state.eweId}
+                                placeholder={'Ram Id'}
+                                onChangeText={(text) => this.setState({ramId: text})}
+                                value={this.state.ramId}
                                 style={{backgroundColor: 'white',width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
                            />
                     <TextInput
                                 editable={true}
-                                placeholder={'Ewe Id'}
-                                onChangeText={(text) => this.setState({eweName: text})}
-                                value={this.state.eweName}
+                                placeholder={'Ram Id'}
+                                onChangeText={(text) => this.setState({ramName: text})}
+                                value={this.state.ramName}
                                 style={{backgroundColor: 'white',width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
                            />
                     <TouchableOpacity style={{backgroundColor: '#5e3558', padding: 10, marginTop: 10}}
@@ -160,4 +160,4 @@ class editspecificewe extends React.Component{
     }
 }
 
-export default editspecificewe;
+export default editspecificram;

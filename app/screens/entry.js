@@ -49,7 +49,7 @@ class entry extends React.Component{
             {this.state.loggedin == true ? (
                 // logged in                
                 <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#ffdf80' }}>
-                <Text>Here we will input new entries and stuff...</Text>
+                <Text>Here, you can add new Ewes, Rams, and Lambs.</Text>
                 <TouchableHighlight 
                 style ={{
                     height: 40,
@@ -59,10 +59,29 @@ class entry extends React.Component{
                     marginRight:50,
                     marginTop :20
                 }}>
-        <Button
+            <Button
           title="Add New Ewe"
           color='#233067'
+          style={{ padding: 10, marginTop: 10}}
           onPress={() => this.props.navigation.navigate('NewEwe')}
+          
+        />
+        </TouchableHighlight>
+                <TouchableHighlight 
+                style ={{
+                    height: 40,
+                    width:160,
+                    borderRadius:10,                    
+                    marginLeft :50,
+                    marginRight:50,
+                    marginTop :20
+                }}>
+
+        <Button
+          title="Add New Ram"
+          color='#233067'
+          style={{ padding: 10, marginTop: 10}}
+          onPress={() => this.props.navigation.navigate('NewRam')}
           
         />
         

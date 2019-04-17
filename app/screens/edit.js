@@ -58,12 +58,30 @@ class edit extends React.Component{
                         marginRight:50,
                         marginTop :20
                     }}>
+                    
                         <Button
                         title="Edit Ewe"
                         color='#233067'
                         onPress={() => this.props.navigation.navigate('EditEwe')}                    
                         />
                     </TouchableHighlight>
+                    <TouchableHighlight 
+                    style ={{
+                        height: 40,
+                        width:160,
+                        borderRadius:10,                    
+                        marginLeft :50,
+                        marginRight:50,
+                        marginTop :20
+                    }}>
+                    
+                        <Button
+                        title="Edit Ram"
+                        color='#233067'
+                        onPress={() => this.props.navigation.navigate('EditRam')}                    
+                        />
+                    </TouchableHighlight>
+
                 </View>
             ) : (
                 // not logged in
@@ -83,6 +101,7 @@ class edit extends React.Component{
                             onPress={() => this.props.navigation.navigate('Login')}
                             />
                     </TouchableHighlight>
+                    
                 </View>
             )}
             </View>
