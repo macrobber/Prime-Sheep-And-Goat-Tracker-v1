@@ -71,27 +71,7 @@ class editewe extends React.Component{
             //console.log('Inside push - just pushed', eweObj.eweId);
 
 
-/*
-          var counter = 0;
-           for(var ewe in data){
-               var eweObj = data[ewe];
-               var parentKey = Object.keys(data)[counter];            
-               counter++;
-                ewedata.push({
-                    eweId: eweObj.eweId,
-                    eweName: eweObj.eweName,
-                    eweKey: parentKey
-                });
-                console.log('Inside push - just pushed', eweObj.eweId);
-                that.setState({
-                    refresh: false,
-                    loading: false
-                });               
-           }
-*/
         }).catch(error => console.log(error));
-
-        //}).catch(error => console.log(error));
     }
 
     loadNew = () => {
