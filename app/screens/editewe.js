@@ -51,6 +51,7 @@ class editewe extends React.Component{
                  eweId: i.eweId,
                  eweName: i.eweName,
                  breed: i.breed,                 
+                 dob: i.dob,                 
                  eweKey: c.key,
              });
              console.log('Inside push - just pushed', i.eweId);
@@ -143,6 +144,7 @@ class editewe extends React.Component{
                     eweName: item.eweName,
                     eweKey: item.eweKey,
                     breed: item.breed,
+                    dob: item.dob,
                   })}>                        
                         <View key={index} style={{width: '100%', overflow: 'hidden', marginBottom: 5, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: 'grey'}}>
                             <View style={{padding: 15, width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>

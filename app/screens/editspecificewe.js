@@ -2,6 +2,7 @@ import React from 'react';
 import { Alert } from 'react-native';
 import {TouchableOpacity, TouchableHighlight, FlatList, StyleSheet, Text, View, TextInput, Image, Button} from 'react-native';
 import {f, auth, database } from '../../config/config.js';
+import DatePicker from 'react-native-datepicker';
 
 class editspecificewe extends React.Component{
     constructor(props){
@@ -14,6 +15,7 @@ class editspecificewe extends React.Component{
             eweName: this.props.navigation.getParam('eweName', 'NO-Name'),        
             eweKey: this.props.navigation.getParam('eweKey', 'NO-Name'),
             breed: this.props.navigation.getParam('breed', 'NO-Name'),
+            dob: this.props.navigation.getParam('dob', 'NO-Name'),
         }
         this.state.eweId = this.state.eweId.toString();
         console.log('Inside const', this.state.eweKey);
@@ -51,6 +53,7 @@ class editspecificewe extends React.Component{
                     eweId: eweObj.eweId,
                     eweName: eweObj.eweName,
                     breed: eweObj.breed,
+                    dob: eweObj.dob,
                     eweKey: parentKey
                 });
                 that.setState({
@@ -66,8 +69,9 @@ class editspecificewe extends React.Component{
         var tmpEweName = this.state.eweName;
         var tmpEweKey = this.state.eweKey;
         var tmpBreed = this.state.breed;
+        var tmpDob = this.state.dob;
 
-        console.log('**inisde saveEwe - eweId ewename and breed = ', tmpEweId, tmpEweName, tmpBreed);
+        console.log('**inside saveEwe - eweId ewename and breed = ', tmpEweId, tmpEweName, tmpBreed);
 
         var TheUniqueKeyOfPush = f.database().ref().push().getKey();
         let userID = f.auth().currentUser.uid; // grab the current users userId
@@ -82,6 +86,9 @@ class editspecificewe extends React.Component{
         
         if(tmpBreed != null){
             database.ref('ewes/'+userID).child(tmpEweKey).child('breed').set(tmpBreed);
+        }
+        if(tmpDob != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('dob').set(tmpDob);
         }
 
         this.setState({editingProfile: false})
@@ -121,6 +128,7 @@ class editspecificewe extends React.Component{
         var eweName = this.props.navigation.getParam('eweName', 'NO-Name');
         var eweKey = this.props.navigation.getParam('eweKey', 'NO-Name');
         var breed = this.props.navigation.getParam('breed', 'NO-Name');
+        var dob = this.props.navigation.getParam('dob', 'NO-Name');
         
         eweId.toString();
         eweName.toString();
@@ -130,6 +138,7 @@ class editspecificewe extends React.Component{
         this.setState.eweName = eweName;
         this.setState.eweKey = eweKey;
         this.setState.breed = breed;
+        this.setState.dob = dob;
 
         return(
             <View style={{flex: 1, backgroundColor: '#ffdf80' }}>
@@ -142,6 +151,7 @@ class editspecificewe extends React.Component{
                 <View style={{alignItems: 'center', justifyContent: 'center', paddingBottom: 20, paddingTop: 20, backgroundColor: '#ffdf80'}}>
                     <Text>Ewe ID: {eweId}</Text>
                     <Text>Ewe Name: {eweName}</Text>
+                    <Text style={{textAlign: 'left'}}>ID/Scrappie</Text>
                     <TextInput
                                 editable={true}
                                 placeholder={'Ewe Id'}
@@ -149,6 +159,7 @@ class editspecificewe extends React.Component{
                                 value={this.state.eweId}
                                 style={{backgroundColor: 'white',width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
                            />
+                    <Text>Farm Name</Text>
                     <TextInput
                                 editable={true}
                                 placeholder={'Ewe Id'}
@@ -156,6 +167,7 @@ class editspecificewe extends React.Component{
                                 value={this.state.eweName}
                                 style={{backgroundColor: 'white',width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
                            />
+                    <Text>Breed</Text>
                     <TextInput
                                 editable={true}
                                 placeholder={'Breed'}
@@ -163,6 +175,32 @@ class editspecificewe extends React.Component{
                                 value={this.state.breed}
                                 style={{backgroundColor: 'white',width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
                            />                           
+                    <Text>Date of Birth</Text>
+                        <DatePicker
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                                date={this.state.dob} //initial date from state
+                                mode="date" //The enum of date, datetime and time
+                                placeholder="Date of Birth"
+                                format="DD-MM-YYYY"
+                                minDate="01-01-2012"
+                                maxDate="01-01-2022"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                value={this.state.dob}
+                                customStyles={{
+                                    dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0
+                                    },
+                                    dateInput: {
+                                    marginLeft: 36
+                                    }
+                                }}
+                                onDateChange={(date) => {this.setState({dob: date})}}
+                            />
+
 
                     <TouchableOpacity style={{backgroundColor: '#5e3558', padding: 10, marginTop: 10}}
                              onPress={ () => this.saveEwe()}>

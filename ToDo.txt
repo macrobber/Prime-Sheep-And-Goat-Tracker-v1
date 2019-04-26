@@ -35,3 +35,4 @@ npm install react-navigation@^3.0.0
 npm install react-native-gesture-handler
 I deleted the react-native-gesture-handler from node_modules/expo/ and it worked for me. It took me so much time to figure it.
 If in troube: https://stackoverflow.com/questions/54486525/tried-to-register-two-views-with-the-same-name-rngesturehandlerbutton
+npm install react-native-datepicker --save // confirms works

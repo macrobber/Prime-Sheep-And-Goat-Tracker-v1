@@ -17,6 +17,8 @@ import editspecificewe from './app/screens/editspecificewe.js';
 import editspecificram from './app/screens/editspecificram.js';
 //import loading from './app/screens/loading.js';
 import {f, auth, database } from './config/config.js';
+import DatePicker from 'react-native-datepicker';
+
 
 class HomeScreen extends React.Component {
   static navigationOptions = {
@@ -39,7 +41,8 @@ class HomeScreen extends React.Component {
   {
     super(props);
     this.state = {
-      loggedin: false
+      loggedin: false,
+      date:"15-05-2018"
   }
 
 }
