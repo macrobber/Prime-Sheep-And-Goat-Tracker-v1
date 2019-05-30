@@ -77,29 +77,22 @@ class newewe extends React.Component{
         var sdate = this.state.sdate;
         var sprice = parseFloat(this.state.sprice);
         var notes = this.state.notes;
-        //database.ref('ewes').child(this.state.userId).push({eweId, eweName});
 
-        const ref = database.ref('ewes').child(userID).push();
-        const key = ref.key;
+        const ref = database.ref('ewes').child(userID).push(); // create connection to db
+        const key = ref.key; // grab the child key
 
         if(eweId != null){
 
             //database.ref('ewes').child(userID).push({eweId, eweName, breed, dob, bof, pfid, pdate, sellername, pprice, ddate, sdate, sprice, notes});
             //database.ref('ewes/'+userID).child(userID).child('eweId').set(eweId);
-            ref.child('eweId').set(eweId);
-            console.log('inside new - ref key is ', key);
+            ref.child('eweId').set(eweId);            
         }
         if(eweName != null){
-            ref.child('eweName').set(eweName);
-        }
+            ref.child('eweName').set(eweName);        }
         if(breed != null){
-             ref.child('breed').set(breed);
-        }
-
-        if(dob != null){
-            //database.ref('ewes/'+userID).child(userID).push('dob');
-            ref.child('dob').set(dob);
-        }
+             ref.child('breed').set(breed);        }
+        if(dob != null){            
+            ref.child('dob').set(dob);        }
         if(bof != null){
             ref.child('bof').set(bof);        }
         if(pfid != null){

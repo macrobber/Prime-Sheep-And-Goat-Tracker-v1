@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert } from 'react-native';
-import {TouchableOpacity, TouchableHighlight, FlatList, StyleSheet, Text, View, TextInput, Image, Button} from 'react-native';
+import {TouchableOpacity, CheckBox, ScrollView, TouchableHighlight, FlatList, StyleSheet, Text, View, TextInput, Image, Button} from 'react-native';
 import {f, auth, database } from '../../config/config.js';
 import DatePicker from 'react-native-datepicker';
 
@@ -16,6 +16,15 @@ class editspecificewe extends React.Component{
             eweKey: this.props.navigation.getParam('eweKey', 'NO-Name'),
             breed: this.props.navigation.getParam('breed', 'NO-Name'),
             dob: this.props.navigation.getParam('dob', 'NO-Name'),
+            bof: this.props.navigation.getParam('bof', 'NO-Name'),
+            pfid: this.props.navigation.getParam('pfid', 'NO-Name'),
+            pdate: this.props.navigation.getParam('pdate', 'NO-Name'),
+            sellername: this.props.navigation.getParam('sellername', 'NO-Name'),
+            pprice: this.props.navigation.getParam('pprice', 'NO-Name'),
+            ddate: this.props.navigation.getParam('ddate', 'NO-Name'),
+            sdate: this.props.navigation.getParam('sdate', 'NO-Name'),
+            sprice: this.props.navigation.getParam('sprice', 'NO-Name'),
+            notes: this.props.navigation.getParam('notes', 'NO-Name'),
         }
         this.state.eweId = this.state.eweId.toString();
         console.log('Inside const', this.state.eweKey);
@@ -54,6 +63,7 @@ class editspecificewe extends React.Component{
                     eweName: eweObj.eweName,
                     breed: eweObj.breed,
                     dob: eweObj.dob,
+                    bof: eweObj.bof,                    
                     eweKey: parentKey
                 });
                 that.setState({
@@ -70,6 +80,15 @@ class editspecificewe extends React.Component{
         var tmpEweKey = this.state.eweKey;
         var tmpBreed = this.state.breed;
         var tmpDob = this.state.dob;
+        var tmpBof = this.state.bof;
+        var tmpPfid = this.state.pfid;
+        var tmpPdate = this.state.pdate;
+        var tmpSellername = this.state.sellername;
+        var tmpPprice = this.state.pprice;
+        var tmpDdate = this.state.ddate;
+        var tmpSdate = this.state.sdate;
+        var tmpSprice = this.state.sprice;
+        var tmpNotes = this.state.notes;
 
         console.log('**inside saveEwe - eweId ewename and breed = ', tmpEweId, tmpEweName, tmpBreed);
 
@@ -89,6 +108,33 @@ class editspecificewe extends React.Component{
         }
         if(tmpDob != null){
             database.ref('ewes/'+userID).child(tmpEweKey).child('dob').set(tmpDob);
+        }
+        if(tmpBof != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('bof').set(tmpBof);
+        }
+        if(tmpPfid != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('pfid').set(tmpPfid);
+        }
+        if(tmpPdate != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('pdate').set(tmpPdate);
+        }
+        if(tmpSellername != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('sellername').set(tmpSellername);
+        }
+        if(tmpPprice != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('pprice').set(tmpPprice);
+        }
+        if(tmpDdate != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('ddate').set(tmpDdate);
+        }
+        if(tmpSdate != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('sdate').set(tmpSdate);
+        }
+        if(tmpSprice != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('sprice').set(tmpSprice);
+        }
+        if(tmpNotes != null){
+            database.ref('ewes/'+userID).child(tmpEweKey).child('notes').set(tmpNotes);
         }
 
         this.setState({editingProfile: false})
@@ -141,7 +187,7 @@ class editspecificewe extends React.Component{
         this.setState.dob = dob;
 
         return(
-            <View style={{flex: 1, backgroundColor: '#ffdf80' }}>
+            <ScrollView style={{flex: 1, backgroundColor: '#ffdf80' }}>
 
                 {this.state.loading == true ? (
                     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -201,6 +247,135 @@ class editspecificewe extends React.Component{
                                 onDateChange={(date) => {this.setState({dob: date})}}
                             />
 
+                    <View style={{ flexDirection: 'column'}}>  
+                        <View style={{ flexDirection: 'row' }}>
+                        <Text style={{marginTop: 5, marginLeft: -80}}>Check if born on farm</Text>
+                            <CheckBox
+                            value={this.state.bof}
+                            onValueChange={() => this.setState({ bof: !this.state.bof })}      
+                            />
+                            
+                        </View>
+                        </View>
+                        <TextInput
+                                editable={true}
+                                placeholder={'Prior Farm ID'}
+                                onChangeText={(text) => this.setState({pfid: text})}
+                                value={this.state.pfid}
+                                style={{backgroundColor: 'white',width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                           />                           
+                    <Text>Purchase Date</Text>
+                        <DatePicker
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                                date={this.state.pdate} //initial date from state
+                                mode="date" //The enum of date, datetime and time
+                                placeholder="Purchase Date"
+                                format="DD-MM-YYYY"
+                                minDate="01-01-2012"
+                                maxDate="01-01-2022"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                value={this.state.pdate}
+                                customStyles={{
+                                    dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0
+                                    },
+                                    dateInput: {
+                                    marginLeft: 36
+                                    }
+                                }}
+                                onDateChange={(date) => {this.setState({pdate: date})}}
+                            />
+                    <Text>Seller Name</Text>                            
+                    <TextInput
+                                editable={true}
+                                placeholder={'Seller Name'}
+                                onChangeText={(text) => this.setState({sellername: text})}
+                                value={this.state.sellername}
+                                style={{backgroundColor: 'white',width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                           />       
+                    <Text>Purchase Price</Text>                                                      
+                            <TextInput
+                                editable={true}
+                                placeholder={'Purchase Price'}
+                                onChangeText={(text) => this.setState({pprice: text})}
+                                keyboardType={"number-pad"}
+                                value={this.state.pprice}
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                           />
+                    <Text>Date of Death</Text>
+                        <DatePicker
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                                date={this.state.ddate} //initial date from state
+                                mode="date" //The enum of date, datetime and time
+                                placeholder="Date of Death"
+                                format="DD-MM-YYYY"
+                                minDate="01-01-2012"
+                                maxDate="01-01-2022"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                value={this.state.ddate}
+                                customStyles={{
+                                    dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0
+                                    },
+                                    dateInput: {
+                                    marginLeft: 36
+                                    }
+                                }}
+                                onDateChange={(date) => {this.setState({ddate: date})}}
+                            />
+                    <Text>Date of Sale</Text>
+                        <DatePicker
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                                date={this.state.sdate} //initial date from state
+                                mode="date" //The enum of date, datetime and time
+                                placeholder="Date of Birth"
+                                format="DD-MM-YYYY"
+                                minDate="01-01-2012"
+                                maxDate="01-01-2022"
+                                confirmBtnText="Confirm"
+                                cancelBtnText="Cancel"
+                                value={this.state.sdate}
+                                customStyles={{
+                                    dateIcon: {
+                                    position: 'absolute',
+                                    left: 0,
+                                    top: 4,
+                                    marginLeft: 0
+                                    },
+                                    dateInput: {
+                                    marginLeft: 36
+                                    }
+                                }}
+                                onDateChange={(date) => {this.setState({sdate: date})}}
+                            />
+
+                    <Text>Sale Price</Text>                                                      
+                            <TextInput
+                                editable={true}
+                                placeholder={'Sale Price'}
+                                onChangeText={(text) => this.setState({sprice: text})}
+                                keyboardType={"number-pad"}
+                                value={this.state.sprice}
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                           />
+                            <TextInput
+                                editable={true}
+                                placeholder={'Notes'}
+                                multiline = {true}
+                                numberOfLines = {4}
+                                onChangeText={(text) => this.setState({notes: text})}
+                                value={this.state.notes}
+                                style={{backgroundColor: 'white', width: 250, marginVertical:10, padding:5, borderColor: 'grey', borderWidth: 1}}
+                           />
+
 
                     <TouchableOpacity style={{backgroundColor: '#5e3558', padding: 10, marginTop: 10}}
                              onPress={ () => this.saveEwe()}>
@@ -214,7 +389,7 @@ class editspecificewe extends React.Component{
                 </View>
                 
             )}
-            </View>
+            </ScrollView>
         )
     }
 }

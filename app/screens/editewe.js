@@ -52,7 +52,16 @@ class editewe extends React.Component{
                  eweName: i.eweName,
                  breed: i.breed,                 
                  dob: i.dob,                 
-                 eweKey: c.key,
+                 bof: i.bof,
+                 pfid: i.pfid,
+                 pdate: i.pdate,
+                 sellername: i.sellername,
+                 pprice: i.pprice,
+                 ddate: i.ddate,
+                 sdate: i.sdate,
+                 sprice: i.sprice,
+                 notes: i.notes,
+                 eweKey: c.key,                 
              });
              console.log('Inside push - just pushed', i.eweId);
              that.setState({
@@ -61,16 +70,7 @@ class editewe extends React.Component{
              });               
         
     })   
-
-//           const exist = (snapshot.val() != null );
-//           if(exist) data = snapshot.val();
-          // var ewedata = that.state.ewedata;
-  
-            // Now simply find the parent and return the name.
             var newKey = snapshot.ref.parent.key;
-            //console.log('Inside push - just pushed', eweObj.eweId);
-
-
         }).catch(error => console.log(error));
     }
 
@@ -125,6 +125,15 @@ class editewe extends React.Component{
                     eweKey: item.eweKey,
                     breed: item.breed,
                     dob: item.dob,
+                    bof: item.bof,
+                    pfid: item.pfid,
+                    pdate: item.pdate,
+                    sellername: item.sellername,
+                    pprice: item.pprice,
+                    ddate: item.ddate,
+                    sdate: item.sdate,
+                    notes: item.notes,
+                    sprice: item.sprice,
                   })}>                        
                         <View key={index} style={{width: '100%', overflow: 'hidden', marginBottom: 5, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: 'grey'}}>
                             <View style={{padding: 15, width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>
