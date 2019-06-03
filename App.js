@@ -9,6 +9,9 @@ import editewe from './app/screens/editewe.js';
 import editram from './app/screens/editram.js';
 import edit from './app/screens/edit.js';
 import medical from './app/screens/medical.js';
+import medicalewe from './app/screens/medicalewe.js';
+import medicalspecificewe from './app/screens/medicalspecificewe.js';
+import medicalram from './app/screens/medicalram.js';
 import profile from './app/screens/profile.js';
 import newewe from './app/screens/newewe.js';
 import newram from './app/screens/newram.js';
@@ -215,6 +218,13 @@ const EditEweStack = createStackNavigator({
   EditSpecificRam: {screen: editspecificram},
 });
 
+const MedicalStack = createStackNavigator({
+  MedicalHome: { screen: medical },
+  MedicalEwe: { screen: medicalewe },
+  MedicalRam: { screen: medicalram },
+  MedicalSpecificEwe: {screen: medicalspecificewe},
+});
+
 const EntryStack = createStackNavigator({
   EntryHome: { screen: entry },
   NewEwe: { screen: newewe },
@@ -251,7 +261,7 @@ export default createAppContainer(createBottomTabNavigator(
       }  
     
     },
-    Medical: {screen: medical,
+    Medical: {screen: MedicalStack,
       navigationOptions:{  
         tabBarLabel:'Upkeep',  
         tabBarIcon:({tintColor})=>(  
