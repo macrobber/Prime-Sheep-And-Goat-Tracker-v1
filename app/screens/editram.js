@@ -3,7 +3,7 @@ import { Alert } from 'react-native';
 import {TouchableOpacity, TouchableHighlight, FlatList, StyleSheet, Text, View, TextInput, Image, Button} from 'react-native';
 import {f, auth, database } from '../../config/config.js';
 
-class editram extends React.Component{
+class editewe extends React.Component{
     constructor(props){
         super(props);
         this.state = {
@@ -43,61 +43,42 @@ class editram extends React.Component{
 
     snapshot.forEach(c => { 
         i = c.val(); 
-        console.log('Inside foreach', i.ramId, i.ramName);
+        console.log('Inside foreach - ramId - name - breed = ', i.ramId, i.ramName, i.breed);
             if(exist) data = c.val();        
-            var parentKey = Object.keys(c)[counter];            
+            
             counter++;
              ewedata.push({
                  ramId: i.ramId,
                  ramName: i.ramName,
-                 ramKey: c.key
+                 breed: i.breed,                 
+                 dob: i.dob,                 
+                 bof: i.bof,
+                 pfid: i.pfid,
+                 pdate: i.pdate,
+                 sellername: i.sellername,
+                 pprice: i.pprice,
+                 ddate: i.ddate,
+                 sdate: i.sdate,
+                 sprice: i.sprice,
+                 notes: i.notes,
+                 ramKey: c.key,                 
              });
-             console.log('Inside push - just pushed', i.ramKey);
-             console.log('**Inside push - just pushed', c.key);
+             console.log('Inside push - just pushed', i.eweId);
              that.setState({
                  refresh: false,
                  loading: false
              });               
         
     })   
-
-//           const exist = (snapshot.val() != null );
-//           if(exist) data = snapshot.val();
-          // var ewedata = that.state.ewedata;
-  
-            // Now simply find the parent and return the name.
             var newKey = snapshot.ref.parent.key;
-            //console.log('Inside push - just pushed', eweObj.eweId);
-
-
-/*
-          var counter = 0;
-           for(var ewe in data){
-               var eweObj = data[ewe];
-               var parentKey = Object.keys(data)[counter];            
-               counter++;
-                ewedata.push({
-                    eweId: eweObj.eweId,
-                    eweName: eweObj.eweName,
-                    eweKey: parentKey
-                });
-                console.log('Inside push - just pushed', eweObj.eweId);
-                that.setState({
-                    refresh: false,
-                    loading: false
-                });               
-           }
-*/
         }).catch(error => console.log(error));
-
-        //}).catch(error => console.log(error));
     }
 
     loadNew = () => {
         this.loadFeed();
     }
     handlePress = (item, index) => {
-        console.log(item, index);
+        console.log('inside editRam', item, index);
         this.props.navigation.navigate('EditSpecificRam')
       }
 
@@ -142,6 +123,17 @@ class editram extends React.Component{
                     ramId: item.ramId,
                     ramName: item.ramName,
                     ramKey: item.ramKey,
+                    breed: item.breed,
+                    dob: item.dob,
+                    bof: item.bof,
+                    pfid: item.pfid,
+                    pdate: item.pdate,
+                    sellername: item.sellername,
+                    pprice: item.pprice,
+                    ddate: item.ddate,
+                    sdate: item.sdate,
+                    notes: item.notes,
+                    sprice: item.sprice,
                   })}>                        
                         <View key={index} style={{width: '100%', overflow: 'hidden', marginBottom: 5, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: 'grey'}}>
                             <View style={{padding: 15, width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -158,4 +150,4 @@ class editram extends React.Component{
     }
 }
 
-export default editram;
+export default editewe;
