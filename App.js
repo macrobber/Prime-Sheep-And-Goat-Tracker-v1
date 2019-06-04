@@ -222,7 +222,7 @@ const MedicalStack = createStackNavigator({
   MedicalHome: { screen: medical },
   MedicalEwe: { screen: medicalewe },
   MedicalRam: { screen: medicalram },
-  MedicalSpecificEwe: {screen: medicalspecificewe},
+  MedicalSpecificEwe: {screen: medicalspecificewe},  
 });
 
 const EntryStack = createStackNavigator({

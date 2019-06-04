@@ -1,17 +1,19 @@
+// version 2 works but won't clear -  medialewe.js
 import React from 'react';
 import { Alert } from 'react-native';
-import {TouchableOpacity, SearchBar, TouchableHighlight, FlatList, StyleSheet, Text, View, TextInput, Image, Button} from 'react-native';
+import {TouchableOpacity, ActivityIndicator, ScrollView, TouchableHighlight, FlatList, StyleSheet, Text, View, TextInput, Image, Button} from 'react-native';
 import {f, auth, database } from '../../config/config.js';
+import {ListItem, SearchBar} from 'react-native-elements';
 
 class medicalewe extends React.Component{
     constructor(props){
         super(props);
         this.state = {
-            ewedata: [], // init array
+            ewedata: [], // init array            
             refresh: false, 
             loading: true,
+            filteredData: []
         }
-       
     }
 
 // On load default runs
@@ -31,21 +33,21 @@ class medicalewe extends React.Component{
         var that = this; // temp as you cannot access this once you call FB
         
         let userID = f.auth().currentUser.uid; // grab the current users userId
-
-//        database.ref('ewes/'+userID).once('value').then(function(snapshot)  {
         database.ref('ewes/'+userID).orderByChild('eweId').once('value').then(function(snapshot)  {
 
-    const nodes = [];            
+//    const nodes = [];            
     var counter = 0;
     var ewedata = that.state.ewedata;
     const exist = (snapshot.val() != null );
+    
     if(exist) data = snapshot.val();
 
     snapshot.forEach(c => { 
         i = c.val(); 
         console.log('Inside foreach - eweId - name - breed = ', i.eweId, i.eweName, i.breed);
             if(exist) data = c.val();        
-            
+//            this.arrayholder = i.eweId;
+//            console.log('Inside arrayholder test  - this arrayholder = ', this.arrayholder);
             counter++;
              ewedata.push({
                  eweId: i.eweId,
@@ -70,6 +72,7 @@ class medicalewe extends React.Component{
              });               
         
     })   
+            //this.arrayholder = ewedata.eweId;
             var newKey = snapshot.ref.parent.key;
         }).catch(error => console.log(error));
     }
@@ -78,7 +81,7 @@ class medicalewe extends React.Component{
         this.loadFeed();
     }
     handlePress = (item, index) => {
-        console.log('inside editEwe', item, index);
+//        console.log('inside editEwe', item, index);
         this.props.navigation.navigate('EditSpecificEwe')
       }
 
@@ -97,27 +100,54 @@ class medicalewe extends React.Component{
         },
       };
 
+      searchFilterFunction = text => {
+        this.setState({
+          value: text,
+        });
 
-    render()
-    {
-        return(
-            <View style={{flex: 1, backgroundColor: '#ffdf80'}}>
-                <View style={{height: 50, paddingTop: 5, color: '#ffdf80', backgroundColor: '#827242', justifyContent: 'center', alignItems: 'center'}}>
-                    <Text style={{color: '#ffdf80'}}>Press Any Row to Edit</Text>
-                </View>
+        let filteredData = this.state.ewedata.filter(item => {
+            return item.eweId.includes(text);
+          });
+        
+          this.setState({filteredData: filteredData});
 
-                {this.state.loading == true ? (
-                    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                        <Text>Loading...</Text> 
-                    </View>
-                ) : (
-                    
-      
+      };
+
+      renderHeader = () => {
+        return (
+          <SearchBar
+            placeholder="Search by ID..."
+            lightTheme
+            containerStyle={{ backgroundColor: '#ffdf80'  }} 
+            round        
+            icon={{ color: '#ffdf80' }}    
+            onChangeText={text => this.searchFilterFunction(text)}
+            autoCorrect={false}
+            value={this.state.value}
+          />
+        );
+      };      
+
+
+      render() {
+        return (
+          <View style={{backgroundColor: '#ffdf80', height: '100%'}}>
+          <ScrollView style={{backgroundColor: '#ffdf80'}}>
+            {
+              this.state.loading &&
+    
+              <ActivityIndicator
+                size="large"
+                color="#3498db"                
+              />
+    
+            }
                 <FlatList
                     refreshing={this.state.refresh}
                     onRefresh={this.loadNew}
-                    data={this.state.ewedata}                
+                    data={this.state.filteredData && this.state.filteredData.length > 0 ? this.state.filteredData : this.state.ewedata}              
                     keyExtractor={(item, index) => index.toString()}
+                    ListHeaderComponent={this.renderHeader}
                     extraData={this.props}
                     style={{flex: 1, backgroundColor: '#ffdf80'}}
                     renderItem={({item, index})=> (
@@ -139,17 +169,18 @@ class medicalewe extends React.Component{
                   })}>                        
                         <View key={index} style={{width: '100%', overflow: 'hidden', marginBottom: 5, justifyContent: 'space-between', borderBottomWidth: 1, borderColor: 'grey'}}>
                             <View style={{padding: 15, width: '100%', flexDirection: 'row', justifyContent: 'space-between'}}>
-                                <Text>{item.eweId}</Text>
-                                <Text>{item.eweName}</Text>                                
+                                <Text style={{fontWeight: 'bold'}}>ID:</Text>
+                                <Text style={{textAlign: 'left'}}>{item.eweId}</Text>
+                                <Text style={{fontWeight: 'bold'}}>></Text>                                
                             </View>
                         </View>
                 </TouchableHighlight>                        
                     )}
                 /> 
-                )}
-            </View>
-        )
-    }
+            </ScrollView>
+          </View>
+        );
+      }
 }
 
 export default medicalewe;
